@@ -44,16 +44,16 @@ The application follows a standard **Model-View-Template (MVT)** architecture pa
 
 ```mermaid
 graph TD
-    User[User / Browser] <--> |HTTP Requests| Flask[Flask App (app.py)]
-    Flask <--> |Renders| Templates[Jinja2 Templates]
-    Flask <--> |Reads/Writes| Session[In-Memory Session Storage]
-    Flask <--> |Reads| Data[Static Room Data (JSON-like List)]
+    User["User / Browser"] <--> |HTTP Requests| Flask["Flask App (app.py)"]
+    Flask <--> |Renders| Templates["Jinja2 Templates"]
+    Flask <--> |Reads/Writes| Session["In-Memory Session Storage"]
+    Flask <--> |Reads| Data["Static Room Data (JSON-like List)"]
     
     subgraph "Testing System"
-        Pytest[Pytest Runner] --> |Controls| Selenium[Selenium WebDriver]
+        Pytest["Pytest Runner"] --> |Controls| Selenium["Selenium WebDriver"]
         Selenium --> |Interacts with| User
-        Pytest --> |Writes| Reports[Test Results (JSON/HTML)]
-        Pytest --> |Sends| Email[SMTP Notification Service]
+        Pytest --> |Writes| Reports["Test Results (JSON/HTML)"]
+        Pytest --> |Sends| Email["SMTP Notification Service"]
     end
     
     Reports --> |Read by| Flask
