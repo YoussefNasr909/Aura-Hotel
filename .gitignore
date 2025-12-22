@@ -1,0 +1,14 @@
+# Environment files (contain secrets)
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+
+# Test artifacts
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/

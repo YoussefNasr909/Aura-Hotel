@@ -66,14 +66,20 @@
             </span>
           </td>
           <td class="text-end">
-            {% if r.status != "Cancelled" %}
-            <form method="post" action="{{ url_for('cancel_reservation', res_id=r.id) }}" onsubmit="return confirm('Cancel this reservation?');">
-              <button class="btn btn-sm btn-outline-danger" data-test="res-cancel-{{ r.id }}" type="submit">
+            {% if r.status == "Booked" %}
+            <form method="post" action="{{ url_for('cancel_reservation', res_id=r.id) }}"
+              onsubmit="return confirm('Cancel this reservation?');" class="d-inline">
+              <button class="btn btn-sm btn-outline-warning" data-test="res-cancel-{{ r.id }}" type="submit">
                 Cancel <i class="bi bi-x-circle"></i>
               </button>
             </form>
-            {% else %}
-              <span class="text-muted small">No actions</span>
+            {% elif r.status == "Cancelled" %}
+            <form method="post" action="{{ url_for('delete_reservation', res_id=r.id) }}"
+              onsubmit="return confirm('Delete this reservation permanently?');" class="d-inline">
+              <button class="btn btn-sm btn-outline-danger" data-test="res-delete-{{ r.id }}" type="submit">
+                Delete <i class="bi bi-trash"></i>
+              </button>
+            </form>
             {% endif %}
           </td>
         </tr>

@@ -53,10 +53,11 @@ def test_create_booking_then_cancel(driver, base_url):
 
     WebDriverWait(driver, 5).until(EC.url_contains("/reservations"))
 
-    # Wait for the actual reservation row to appear, not just the table container
-    row = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, '[data-test="res-row-1"]'))
+    # Wait for the actual reservation row with content to appear
+    WebDriverWait(driver, 10).until(
+        EC.text_to_be_present_in_element((By.CSS_SELECTOR, '[data-test="res-row-1"]'), "Cairo Comfort Single")
     )
+    row = driver.find_element(By.CSS_SELECTOR, '[data-test="res-row-1"]')
     assert "Cairo Comfort Single" in row.text
     assert "Booked" in row.text
 
@@ -128,3 +129,61 @@ def test_booking_validation_guests_exceed_capacity(driver, base_url):
         EC.visibility_of_element_located((By.CSS_SELECTOR, '[data-test="flash"]'))
     )
     assert "Guests must be between 1 and 1" in flash.text
+
+
+def test_delete_cancelled_reservation(driver, base_url):
+    """Test deleting a cancelled reservation (full CRUD lifecycle)."""
+    reset_session(driver, base_url)
+    login(driver, base_url)
+
+    # Step 1: Create a booking
+    driver.get(base_url + "/booking")
+
+    room_select = Select(driver.find_element(By.CSS_SELECTOR, '[data-test="booking-room"]'))
+    room_select.select_by_value("1")
+
+    ci = date.today() + timedelta(days=5)
+    co = date.today() + timedelta(days=7)
+
+    set_date_js(driver, '[data-test="booking-checkin"]', ci.isoformat())
+    set_date_js(driver, '[data-test="booking-checkout"]', co.isoformat())
+
+    guests = driver.find_element(By.CSS_SELECTOR, '[data-test="booking-guests"]')
+    guests.clear()
+    guests.send_keys("1")
+
+    driver.find_element(By.CSS_SELECTOR, '[data-test="booking-submit"]').click()
+
+    WebDriverWait(driver, 5).until(EC.url_contains("/reservations"))
+
+    # Step 2: Cancel the reservation
+    cancel_btn = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, '[data-test="res-cancel-1"]'))
+    )
+    cancel_btn.click()
+
+    # Accept the confirm dialog
+    WebDriverWait(driver, 5).until(EC.alert_is_present())
+    driver.switch_to.alert.accept()
+
+    # Wait for page to reload
+    import time
+    time.sleep(1)
+
+    # Step 3: Delete the cancelled reservation
+    delete_btn = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, '[data-test="res-delete-1"]'))
+    )
+    delete_btn.click()
+
+    # Accept the confirm dialog
+    WebDriverWait(driver, 5).until(EC.alert_is_present())
+    driver.switch_to.alert.accept()
+
+    # Wait for page to reload
+    time.sleep(1)
+
+    # Step 4: Verify reservation is deleted (should show empty message)
+    # Either the row is gone or the table shows "No reservations found"
+    assert "Cairo Comfort Single" not in driver.page_source or "No reservations found" in driver.page_source
+

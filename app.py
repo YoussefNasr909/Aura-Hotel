@@ -304,6 +304,23 @@ def cancel_reservation(res_id):
     return redirect(url_for("reservations"))
 
 
+@app.route("/reservations/<int:res_id>/delete", methods=["POST"])
+@login_required
+def delete_reservation(res_id):
+    """Delete a cancelled reservation permanently."""
+    items = session.get("reservations", [])
+    for i, r in enumerate(items):
+        if r["id"] == res_id:
+            if r["status"] == "Cancelled":
+                items.pop(i)
+                session.modified = True
+                flash("Reservation deleted permanently.", "success")
+            else:
+                flash("Only cancelled reservations can be deleted.", "warning")
+            break
+    return redirect(url_for("reservations"))
+
+
 @app.route("/dashboard")
 @login_required
 def dashboard():
