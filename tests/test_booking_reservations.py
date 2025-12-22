@@ -53,11 +53,12 @@ def test_create_booking_then_cancel(driver, base_url):
 
     WebDriverWait(driver, 5).until(EC.url_contains("/reservations"))
 
-    table = WebDriverWait(driver, 5).until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, '[data-test="res-table"]'))
+    # Wait for the actual reservation row to appear, not just the table container
+    row = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, '[data-test="res-row-1"]'))
     )
-    assert "Cairo Comfort Single" in table.text
-    assert "Booked" in table.text
+    assert "Cairo Comfort Single" in row.text
+    assert "Booked" in row.text
 
     cancel_btn = driver.find_element(By.CSS_SELECTOR, '[data-test="res-cancel-1"]')
     cancel_btn.click()

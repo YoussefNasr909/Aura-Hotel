@@ -83,6 +83,7 @@
 
 /* === Reduce Motion Support === */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -147,6 +148,7 @@ a:focus-visible {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -154,8 +156,13 @@ a:focus-visible {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes scaleIn {
@@ -163,6 +170,7 @@ a:focus-visible {
     opacity: 0;
     transform: scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -174,6 +182,7 @@ a:focus-visible {
     opacity: 0;
     transform: translateY(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -181,13 +190,25 @@ a:focus-visible {
 }
 
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 @keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 0 0 var(--color-accent-glow); }
-  50% { box-shadow: 0 0 20px 4px var(--color-accent-glow); }
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 var(--color-accent-glow);
+  }
+
+  50% {
+    box-shadow: 0 0 20px 4px var(--color-accent-glow);
+  }
 }
 
 /* === Animation Utilities === */
@@ -217,7 +238,7 @@ a:focus-visible {
 .nav-glass .navbar-brand {
   color: var(--color-accent) !important;
   transition: color var(--dur-180) var(--ease-standard),
-              transform var(--dur-180) var(--ease-standard);
+    transform var(--dur-180) var(--ease-standard);
 }
 
 .nav-glass .navbar-brand:hover {
@@ -240,7 +261,7 @@ a:focus-visible {
   height: 2px;
   background: var(--color-accent);
   transition: width var(--dur-250) var(--ease-standard),
-              left var(--dur-250) var(--ease-standard);
+    left var(--dur-250) var(--ease-standard);
 }
 
 .nav-glass .nav-link:hover {
@@ -267,7 +288,7 @@ a:focus-visible {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
   opacity: 0;
   transition: opacity var(--dur-180) var(--ease-standard);
 }
@@ -369,8 +390,8 @@ a:focus-visible {
   color: var(--color-text);
   border-radius: var(--radius-md);
   transition: border-color var(--dur-180) var(--ease-standard),
-              box-shadow var(--dur-180) var(--ease-standard),
-              background var(--dur-180) var(--ease-standard);
+    box-shadow var(--dur-180) var(--ease-standard),
+    background var(--dur-180) var(--ease-standard);
 }
 
 .form-control::placeholder {
@@ -402,10 +423,10 @@ a:focus-visible {
    Cards & Surfaces
 ========================= */
 .hero {
-  background: linear-gradient(135deg, 
-    var(--color-surface-strong) 0%, 
-    var(--color-surface) 50%,
-    rgba(255, 195, 0, 0.05) 100%);
+  background: linear-gradient(135deg,
+      var(--color-surface-strong) 0%,
+      var(--color-surface) 50%,
+      rgba(255, 195, 0, 0.05) 100%);
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow-lg);
   border-radius: var(--radius-xl);
@@ -421,10 +442,10 @@ a:focus-visible {
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    var(--color-accent) 50%, 
-    transparent 100%);
+  background: linear-gradient(90deg,
+      transparent 0%,
+      var(--color-accent) 50%,
+      transparent 100%);
   opacity: 0.5;
 }
 
@@ -436,8 +457,8 @@ a:focus-visible {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   transition: transform var(--dur-250) var(--ease-standard),
-              box-shadow var(--dur-250) var(--ease-standard),
-              border-color var(--dur-250) var(--ease-standard);
+    box-shadow var(--dur-250) var(--ease-standard),
+    border-color var(--dur-250) var(--ease-standard);
 }
 
 .glass-card:hover {
@@ -452,8 +473,8 @@ a:focus-visible {
   box-shadow: var(--shadow-md);
   border-radius: var(--radius-lg);
   transition: transform var(--dur-250) var(--ease-standard),
-              box-shadow var(--dur-250) var(--ease-standard),
-              border-color var(--dur-250) var(--ease-standard);
+    box-shadow var(--dur-250) var(--ease-standard),
+    border-color var(--dur-250) var(--ease-standard);
   animation: fadeIn var(--dur-400) var(--ease-emphasized);
 }
 
@@ -493,7 +514,7 @@ a:focus-visible {
   color: var(--color-bg);
   box-shadow: var(--shadow-glow-sm);
   transition: transform var(--dur-180) var(--ease-standard),
-              box-shadow var(--dur-180) var(--ease-standard);
+    box-shadow var(--dur-180) var(--ease-standard);
 }
 
 .price-tag:hover {
@@ -685,8 +706,18 @@ code {
   color: var(--color-text);
 }
 
-h1, h2, h3, h4, h5, h6,
-.h1, .h2, .h3, .h4, .h5, .h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
   color: var(--color-text);
 }
 
@@ -730,4 +761,119 @@ main.container {
 ::-moz-selection {
   background: var(--color-accent);
   color: var(--color-bg);
+}
+
+/* =========================
+   Room Details Modal
+========================= */
+.modal-glass {
+  background: linear-gradient(135deg,
+      rgba(0, 29, 61, 0.95) 0%,
+      rgba(0, 8, 20, 0.98) 100%);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-lg);
+}
+
+.modal-glass .modal-header {
+  padding: 1.5rem 1.5rem 0.5rem;
+}
+
+.modal-glass .modal-body {
+  padding: 1rem 1.5rem;
+}
+
+.modal-glass .modal-footer {
+  padding: 0.5rem 1.5rem 1.5rem;
+}
+
+.modal-glass .btn-close-white {
+  filter: invert(1) brightness(0.9);
+  opacity: 0.7;
+  transition: opacity var(--dur-180) var(--ease-standard);
+}
+
+.modal-glass .btn-close-white:hover {
+  opacity: 1;
+}
+
+/* Modal backdrop */
+.modal-backdrop.show {
+  backdrop-filter: blur(4px);
+}
+
+/* =========================
+   Room Info Grid
+========================= */
+.room-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.room-info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.8rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  transition: all var(--dur-180) var(--ease-standard);
+}
+
+.room-info-item:hover {
+  background: var(--color-surface-hover);
+  border-color: var(--color-border-accent);
+  color: var(--color-accent);
+}
+
+.room-info-item i {
+  color: var(--color-accent);
+  font-size: 1rem;
+}
+
+/* =========================
+   Amenity Badges
+========================= */
+.amenity-badge {
+  background: linear-gradient(135deg, var(--color-surface-strong) 0%, var(--color-surface) 100%);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  padding: 0.5em 0.9em;
+  font-weight: 500;
+  font-size: 0.85rem;
+  border-radius: var(--radius-full);
+  transition: all var(--dur-180) var(--ease-standard);
+}
+
+.amenity-badge:hover {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-bg);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow-sm);
+}
+
+/* =========================
+   Room Rating Stars
+========================= */
+.room-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.room-rating .bi-star-fill,
+.room-rating .bi-star-half,
+.room-rating .bi-star {
+  font-size: 0.9rem;
+}
+
+.text-warning {
+  color: var(--color-accent) !important;
 }

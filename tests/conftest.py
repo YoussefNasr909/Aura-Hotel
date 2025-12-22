@@ -20,17 +20,39 @@ def base_url():
 def driver():
     options = Options()
 
-    # Optional headless mode:
-    # set HEADLESS=1 in terminal to run without opening browser
-    if os.getenv("HEADLESS") == "1":
+    # HEADLESS MODE: Enabled by default for faster tests
+    # Set HEADLESS=0 in terminal to see the browser window
+    if os.getenv("HEADLESS", "1") != "0":
         options.add_argument("--headless=new")
 
+    # Window size
     options.add_argument("--window-size=1400,900")
+    
+    # === PERFORMANCE OPTIMIZATIONS ===
+    # Faster page load - don't wait for all resources
+    options.page_load_strategy = "eager"
+    
+    # Disable unnecessary features
     options.add_argument("--disable-gpu")
     options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-extensions")
+    options.add_argument("--disable-infobars")
+    options.add_argument("--disable-notifications")
+    options.add_argument("--disable-popup-blocking")
+    
+    # Disable images for faster loading (optional - uncomment if needed)
+    # options.add_argument("--blink-settings=imagesEnabled=false")
+    
+    # Reduce logging
+    options.add_argument("--log-level=3")
+    options.add_experimental_option('excludeSwitches', ['enable-logging'])
 
     service = Service(ChromeDriverManager().install())
     drv = webdriver.Chrome(service=service, options=options)
+    
+    # Reduce implicit wait time
+    drv.implicitly_wait(2)
 
     yield drv
     drv.quit()

@@ -19,9 +19,13 @@ ROOMS = [
         "type": "Single",
         "price": 55,
         "capacity": 1,
+        "size": 220,
+        "bedType": "Twin",
+        "floor": 2,
+        "rating": 4.5,
         "amenities": ["Wi-Fi", "AC", "Breakfast", "Desk"],
         "image": "https://images.unsplash.com/photo-1568495248636-6432b97bd949?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        "desc": "A quiet minimalist single room, perfect for solo travelers."
+        "desc": "A quiet minimalist single room, perfect for solo travelers. Features modern Egyptian decor with warm earth tones and a comfortable workspace."
     },
     {
         "id": 2,
@@ -29,9 +33,13 @@ ROOMS = [
         "type": "Double",
         "price": 85,
         "capacity": 2,
+        "size": 320,
+        "bedType": "Queen",
+        "floor": 4,
+        "rating": 4.7,
         "amenities": ["Wi-Fi", "AC", "Balcony", "Breakfast"],
         "image": "https://images.unsplash.com/photo-1505692952047-1a78307da8f2?auto=format&fit=crop&w=1200&q=60",
-        "desc": "A bright double room with a relaxing city view."
+        "desc": "A bright double room with a relaxing city view. Wake up to stunning views and enjoy the spacious balcony overlooking the bustling streets."
     },
     {
         "id": 3,
@@ -39,9 +47,55 @@ ROOMS = [
         "type": "Suite",
         "price": 160,
         "capacity": 4,
+        "size": 520,
+        "bedType": "King",
+        "floor": 6,
+        "rating": 4.9,
         "amenities": ["Wi-Fi", "AC", "Jacuzzi", "Living Area", "Breakfast"],
         "image": "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1200&q=60",
-        "desc": "Premium suite with extra space and comfort for families."
+        "desc": "Premium suite with extra space and comfort for families. Features a separate living area, luxurious jacuzzi, and elegant furnishings."
+    },
+    {
+        "id": 4,
+        "name": "Alexandria Sea Breeze",
+        "type": "Double",
+        "price": 95,
+        "capacity": 2,
+        "size": 350,
+        "bedType": "Queen",
+        "floor": 5,
+        "rating": 4.6,
+        "amenities": ["Wi-Fi", "AC", "Sea View", "Mini Bar", "Breakfast"],
+        "image": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1200&q=60",
+        "desc": "Mediterranean-inspired coastal room with refreshing sea breeze ambiance. Perfect for couples seeking a romantic getaway with ocean views."
+    },
+    {
+        "id": 5,
+        "name": "Pharaoh's Royal Chamber",
+        "type": "Suite",
+        "price": 220,
+        "capacity": 4,
+        "size": 680,
+        "bedType": "King",
+        "floor": 8,
+        "rating": 5.0,
+        "amenities": ["Wi-Fi", "AC", "Jacuzzi", "Living Area", "Butler Service", "Breakfast", "Private Terrace"],
+        "image": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=60",
+        "desc": "Our most luxurious Egyptian-themed suite inspired by ancient royalty. Features gold accents, premium amenities, butler service, and a private terrace."
+    },
+    {
+        "id": 6,
+        "name": "Aswan Desert Oasis",
+        "type": "Single",
+        "price": 65,
+        "capacity": 1,
+        "size": 250,
+        "bedType": "Twin",
+        "floor": 3,
+        "rating": 4.4,
+        "amenities": ["Wi-Fi", "AC", "Breakfast", "Spa Access"],
+        "image": "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1200&q=60",
+        "desc": "A tranquil desert-themed retreat with warm sandy tones and calming atmosphere. Includes complimentary spa access for ultimate relaxation."
     },
 ]
 
