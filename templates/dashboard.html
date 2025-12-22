@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% set title = "Dashboard • AURA Hotel" %}
+{% block content %}
+
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+  <div>
+    <h1 class="h4 fw-bold mb-1">Dashboard</h1>
+    <div class="text-muted">Reservations + Test Automation results.</div>
+  </div>
+</div>
+
+<!-- Reservation Stats -->
+<div class="row g-3 mb-4">
+  <div class="col-md-4">
+    <div class="card card-soft">
+      <div class="card-body">
+        <div class="text-muted small">Rooms</div>
+        <div class="h3 fw-bold mb-0" data-test="dash-rooms">{{ total_rooms }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card card-soft">
+      <div class="card-body">
+        <div class="text-muted small">Reservations</div>
+        <div class="h3 fw-bold mb-0" data-test="dash-res">{{ total_res }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card card-soft">
+      <div class="card-body">
+        <div class="text-muted small">Booked / Cancelled</div>
+        <div class="h5 fw-bold mb-0" data-test="dash-booked-cancelled">{{ booked }} / {{ cancelled }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEST AUTOMATION DASHBOARD -->
+<div class="card card-soft mb-4">
+  <div class="card-body p-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+      <div>
+        <h2 class="h5 fw-bold mb-1">Test Automation Dashboard</h2>
+        <div class="text-muted">Results generated automatically after running pytest.</div>
+      </div>
+      {% if latest_test %}
+        {% if latest_test.failed == 0 and latest_test.exitstatus == 0 %}
+          <span class="badge text-bg-success" data-test="test-status">Last Run: PASS</span>
+        {% else %}
+          <span class="badge text-bg-danger" data-test="test-status">Last Run: FAIL</span>
+        {% endif %}
+      {% else %}
+        <span class="badge text-bg-secondary" data-test="test-status">No Runs Yet</span>
+      {% endif %}
+    </div>
+
+    {% if latest_test %}
+      <div class="row g-3 mt-2">
+        <div class="col-md-3">
+          <div class="glass-card p-3 rounded-4">
+            <div class="text-muted small">Total</div>
+            <div class="h4 fw-bold mb-0" data-test="test-total">{{ latest_test.total }}</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="glass-card p-3 rounded-4">
+            <div class="text-muted small">Passed</div>
+            <div class="h4 fw-bold mb-0" data-test="test-passed">{{ latest_test.passed }}</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="glass-card p-3 rounded-4">
+            <div class="text-muted small">Failed</div>
+            <div class="h4 fw-bold mb-0" data-test="test-failed">{{ latest_test.failed }}</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="glass-card p-3 rounded-4">
+            <div class="text-muted small">Skipped</div>
+            <div class="h4 fw-bold mb-0" data-test="test-skipped">{{ latest_test.skipped }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-muted small mt-3" data-test="test-time">
+        <i class="bi bi-clock-history"></i>
+        Last run at: <span class="fw-semibold">{{ latest_test.timestamp }}</span>
+      </div>
+
+      <hr class="my-4">
+
+      <h3 class="h6 fw-bold mb-2">Pass/Fail Trend (Last 30 runs)</h3>
+      <canvas id="trendChart" height="120"></canvas>
+    {% else %}
+      <div class="alert alert-info mt-3 mb-0">
+        Run tests once to see results here:
+        <div class="mt-2">
+          <code>pytest -v --html=report.html --self-contained-html</code>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<!-- Recent Reservations -->
+<div class="card card-soft">
+  <div class="card-body">
+    <h2 class="h6 fw-bold mb-3">Recent reservations</h2>
+    <div class="list-group list-group-flush">
+      {% for r in recent %}
+      <div class="list-group-item d-flex justify-content-between align-items-start">
+        <div>
+          <div class="fw-semibold">{{ r.room_name }}</div>
+          <div class="text-muted small">{{ r.check_in }} → {{ r.check_out }} • Guests {{ r.guests }}</div>
+        </div>
+        <span class="badge {% if r.status=='Booked' %}text-bg-success{% else %}text-bg-secondary{% endif %}">
+          {{ r.status }}
+        </span>
+      </div>
+      {% else %}
+        <div class="text-muted">No reservations yet.</div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+{% if test_history %}
+<script>
+  const historyData = {{ test_history|tojson }};
+
+  const labels = historyData.map(r => r.timestamp);
+  const passed = historyData.map(r => r.passed);
+  const failed = historyData.map(r => r.failed);
+
+  const ctx = document.getElementById('trendChart');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        { label: 'Passed', data: passed, tension: 0.25 },
+        { label: 'Failed', data: failed, tension: 0.25 }
+      ]
+    },
+    options: {
+      plugins: { legend: { position: 'bottom' } },
+      scales: {
+        x: { ticks: { maxRotation: 45, minRotation: 45 } },
+        y: { beginAtZero: true, precision: 0 }
+      }
+    }
+  });
+</script>
+{% endif %}
+{% endblock %}

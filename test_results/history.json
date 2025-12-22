@@ -1,0 +1,66 @@
+[
+  {
+    "timestamp": "2025-12-22T17:05:34",
+    "total": 8,
+    "passed": 0,
+    "failed": 4,
+    "skipped": 0,
+    "exitstatus": 2
+  },
+  {
+    "timestamp": "2025-12-22T17:07:18",
+    "total": 8,
+    "passed": 0,
+    "failed": 1,
+    "skipped": 0,
+    "exitstatus": 2
+  },
+  {
+    "timestamp": "2025-12-22T17:09:14",
+    "total": 8,
+    "passed": 5,
+    "failed": 3,
+    "skipped": 0,
+    "exitstatus": 1
+  },
+  {
+    "timestamp": "2025-12-22T18:10:29",
+    "total": 8,
+    "passed": 8,
+    "failed": 0,
+    "skipped": 0,
+    "exitstatus": 0
+  },
+  {
+    "timestamp": "2025-12-22T20:01:55",
+    "total": 8,
+    "passed": 7,
+    "failed": 1,
+    "skipped": 0,
+    "exitstatus": 1
+  },
+  {
+    "timestamp": "2025-12-22T20:11:59",
+    "total": 8,
+    "passed": 8,
+    "failed": 0,
+    "skipped": 0,
+    "exitstatus": 0
+  },
+  {
+    "timestamp": "2025-12-22T20:36:18",
+    "total": 8,
+    "passed": 6,
+    "failed": 2,
+    "skipped": 0,
+    "exitstatus": 1
+  },
+  {
+    "timestamp": "2025-12-22T20:37:41",
+    "total": 8,
+    "passed": 8,
+    "failed": 0,
+    "skipped": 0,
+    "exitstatus": 0
+  }
+]

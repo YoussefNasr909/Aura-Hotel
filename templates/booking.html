@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% set title = "Booking • AURA Hotel" %}
+{% block content %}
+
+<div class="row g-3 align-items-start">
+  <div class="col-lg-6">
+    <div class="card card-soft">
+      <div class="card-body p-4">
+        <h1 class="h4 fw-bold mb-1">Create a booking</h1>
+        <p class="text-muted mb-4">This will add a reservation to session (no DB).</p>
+
+        <form method="post">
+          <div class="mb-3">
+            <label class="form-label">Room</label>
+            <select class="form-select" data-test="booking-room" name="room_id" required>
+              <option value="">Select a room...</option>
+              {% for r in rooms %}
+                <option value="{{ r.id }}" {% if selected_room and selected_room.id==r.id %}selected{% endif %}>
+                  {{ r.name }} — {{ r.type }} — ${{ r.price }}/night
+                </option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="row g-2">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Check-in</label>
+              <input class="form-control"  data-test="booking-checkin" type="date" name="check_in" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Check-out</label>
+              <input class="form-control" data-test="booking-checkout" type="date" name="check_out" required>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Guests</label>
+            <input class="form-control" data-test="booking-guests" name="guests" type="number" min="1" value="1" required>
+          </div>
+
+          <button class="btn btn-primary w-100" data-test="booking-submit" type="submit">
+            Confirm booking <i class="bi bi-calendar2-check"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="card card-soft">
+      <div class="card-body p-4">
+        <h2 class="h5 fw-bold mb-2">Testing flow</h2>
+        <ol class="text-muted mb-0">
+          <li>Login</li>
+          <li>Rooms search</li>
+          <li>Book</li>
+          <li>Open Reservations</li>
+          <li>Cancel reservation</li>
+        </ol>
+      </div>
+    </div>
+
+    {% if selected_room %}
+    <div class="card card-soft mt-3">
+      <img src="{{ selected_room.image }}" class="card-img-top img-cover" alt="room">
+      <div class="card-body">
+        <div class="fw-bold">{{ selected_room.name }}</div>
+        <div class="text-muted small">{{ selected_room.type }} • Capacity {{ selected_room.capacity }}</div>
+        <div class="mt-2 price-tag">${{ selected_room.price }}/night</div>
+        <p class="mt-3 text-muted">{{ selected_room.desc }}</p>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}
